@@ -1,1 +1,117 @@
-visualize.html
+<html>
+  <head>
+  <script src="game.js" type="text/javascript"></script>
+  </head>
+  <body>
+  <h1> prey and predators </h1>
+  <canvas id="canvas" width="800" height="600" style="border:1px solid #d3d3d3;">
+    Your browser does not support the HTML5 canvas tag.</canvas>
+  </body>
+  <div>
+    <span class='btn' id='prevBtn'> Prev </span>
+    <span class='btn' id='pauseBtn'> Pause </span>
+    <span class='btn' id='playBtn'> Play </span>
+    <span class='btn' id='stopBtn'> Stop </span>
+    <span class='btn' id='nextBtn'> Next </span>
+  </div>
+  <script>
+  var moveIndex = 0;
+  var canvas = document.getElementById('canvas');
+  var scaleX = canvas.width / game.width;
+  var scaleY = canvas.height / game.height;
+  var scale = scaleX < scaleY ? scaleX : scaleY;
+  var playState = 'Stopped';
+  drawCurrentMove();
+
+  document.getElementById('playBtn').onclick =
+  function() {
+    if (playState !== 'Running') {
+      playState = 'Running';
+      drawCurrentMove();
+    }
+  };
+
+  document.getElementById('pauseBtn').onclick =
+  function() {
+    playState = 'Paused';
+  };
+
+  document.getElementById('stopBtn').onclick =
+  function() {
+    playState = 'Stopped';
+    moveIndex = 0;
+    drawCurrentMove();
+  };
+
+  document.getElementById('prevBtn').onclick =
+  function() {
+    playState = 'Stopped';
+    moveIndex > 0 ? moveIndex-- : moveIndex;
+    drawCurrentMove();
+  };
+
+  document.getElementById('nextBtn').onclick =
+  function() {
+    playState = 'Stopped';
+    moveIndex < game.moves.length - 1 ? moveIndex++ : moveIndex;
+    drawCurrentMove();
+  };
+
+  function drawCircle(x, y, radius, color) {
+    ctx = canvas.getContext('2d');
+    ctx.lineWidth = '2';
+    ctx.beginPath();
+    ctx.arc(x * scale, y * scale, radius * scale, 0, Math.PI * 2);
+    ctx.strokeStyle = color;
+    ctx.stroke();
+    ctx.closePath();
+  }
+
+
+  function drawCurrentMove() {
+    if (moveIndex >= game.moves.length) {
+      moveIndex = 0;
+      playState = 'Stopped';
+      return;
+    }
+    canvas.width = canvas.width;
+    move = game.moves[moveIndex];
+
+    drawCircle(move.prey[0], move.prey[1], game.preyCollisonRadius, '#00fe00');
+    drawCircle(move.prey[0], move.prey[1], game.preyPerceptionRadius, '#aafeaa');
+
+    move.traps.forEach(function(trap) {
+      drawCircle(trap[0], trap[1], game.trapCollisionRadius, '#fffe00');
+    });
+
+    move.predators.forEach(function(predator) {
+      drawCircle(predator[0], predator[1], game.predatorCollisionRadius, '#ff0000');
+      drawCircle(predator[0], predator[1], game.predatorPerceptionRadius, '#ffaaaa');
+    });
+
+    ctx = canvas.getContext('2d');
+    ctx.font = "bold 20px Arial";
+    ctx.fillText(moveIndex + 1 + '/' + game.moves.length, 0, 20);
+
+    if (playState === 'Running') {
+      moveIndex++;
+      setTimeout(drawCurrentMove, 300);
+    }
+
+  }
+  </script>
+  <style>
+    body {
+      margin: auto;
+      width: 800px;
+      text-align: center;
+    }
+    .btn {
+      padding: 10px;
+      margin: 2px;
+      background-color: #eaeaea;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  </style>
+</html>
