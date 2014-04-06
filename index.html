@@ -3,6 +3,8 @@
   <script src="game.js" type="text/javascript"></script>
   </head>
   <body>
+
+  <div class="container color1" name="top">
   <h1> prey and predators </h1>
   <canvas id="canvas" width="800" height="600" style="border:1px solid #d3d3d3;">
     Your browser does not support the HTML5 canvas tag.</canvas>
@@ -13,6 +15,14 @@
     <button class='btn' id='playBtn'> &gt </button>
     <button class='btn' id='stopBtn'> [] </button>
     <button class='btn' id='nextBtn'> &gt&gt| </button>
+  </div>
+  </div>
+
+  <div class="container color2">
+    <h2> add custom json game data here: </h2>
+    <textarea rows=30 cols=80 id="jsonData"></textarea>
+    <br/>
+    <button class='btn' id='loadBtn'> Load it! </button>
   </div>
   <script>
   var moveIndex = 0;
@@ -55,6 +65,18 @@
     playState = 'Stopped';
     moveIndex < game.moves.length - 1 ? moveIndex++ : moveIndex;
     drawCurrentMove();
+  };
+
+  document.getElementById('loadBtn').onclick =
+  function() {
+    playState = 'Stopped';
+    moveIndex = 0;
+    game = eval('(' + document.getElementById('jsonData').value + ')');
+    var scaleX = canvas.width / game.width;
+    var scaleY = canvas.height / game.height;
+    scale = scaleX < scaleY ? scaleX : scaleY;
+    drawCurrentMove();
+    scrollTo(0, 0);
   };
 
   function drawCircle(x, y, radius, color) {
@@ -101,9 +123,12 @@
   }
   </script>
   <style>
-    body {
+    #canvas {
+      background-color: white;
+    }
+    .container {
       margin: auto;
-      width: 800px;
+      width: 900px;
       text-align: center;
     }
     .btn {
@@ -112,6 +137,18 @@
       background-color: #eaeaea;
       cursor: pointer;
       border-radius: 5px;
+    }
+
+    h2 {
+      margin: 0px;
+      padding-top: 20px;
+    }
+    .color1 {
+      background-color: #00aaff;
+    }
+
+    .color2 {
+      background-color: #0088cc;
     }
   </style>
 </html>
