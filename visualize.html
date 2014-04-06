@@ -3,7 +3,7 @@
   <script src="game.js" type="text/javascript"></script>
   </head>
   <body>
-  <h1> Pray and predators </h1>
+  <h1> prey and predators </h1>
   <canvas id="canvas" width="800" height="600" style="border:1px solid #d3d3d3;">
     Your browser does not support the HTML5 canvas tag.</canvas>
   </body>
@@ -77,8 +77,8 @@
     canvas.width = canvas.width;
     move = game.moves[moveIndex];
 
-    drawCircle(move.pray[0], move.pray[1], game.prayCollisonRadius, '#00fe00');
-    drawCircle(move.pray[0], move.pray[1], game.prayPerceptionRadius, '#aafeaa');
+    drawCircle(move.prey[0], move.prey[1], game.preyCollisonRadius, '#00fe00');
+    drawCircle(move.prey[0], move.prey[1], game.preyPerceptionRadius, '#aafeaa');
 
     move.traps.forEach(function(trap) {
       drawCircle(trap[0], trap[1], game.trapCollisionRadius, '#fffe00');
