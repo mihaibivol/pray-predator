@@ -1,20 +1,22 @@
 <html>
   <head>
   <script src="game.js" type="text/javascript"></script>
+  <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <link href='http://fonts.googleapis.com/css?family=Sonsie+One' rel='stylesheet' type='text/css'>
   </head>
   <body>
 
   <div class="container color1" name="top">
   <h1> prey and predators </h1>
-  <canvas id="canvas" width="800" height="600" style="border:1px solid #d3d3d3;">
+  <canvas id="canvas" width="800" height="600" style="border:2px solid #d3d3d3;">
     Your browser does not support the HTML5 canvas tag.</canvas>
   </body>
   <div>
-    <button class='btn' id='prevBtn'> |&lt&lt </button>
-    <button class='btn' id='pauseBtn'> || </button>
-    <button class='btn' id='playBtn'> &gt </button>
-    <button class='btn' id='stopBtn'> [] </button>
-    <button class='btn' id='nextBtn'> &gt&gt| </button>
+    <button class='btn fa fa-backward' id='prevBtn'></button>
+    <button class='btn fa fa-pause' id='pauseBtn'></button>
+    <button class='btn fa fa-play' id='playBtn'></button>
+    <button class='btn fa fa-stop' id='stopBtn'></button>
+    <button class='btn fa fa-forward' id='nextBtn'></button>
   </div>
   </div>
 
@@ -125,13 +127,22 @@
   }
   </script>
   <style>
+    html {
+      background-color: #26627F;
+    }
     #canvas {
-      background-color: white;
+      background-color: #efefff;
     }
     .container {
       margin: auto;
       width: 900px;
+      border: thick solid #000000;
+      border-top: thick solid #000000;
+      border-width: 1px;
+      border-top-width: 10px;
       text-align: center;
+      font-family: 'Sonsie One', cursive;
+      padding: 10px;
     }
     .btn {
       padding: 10px;
