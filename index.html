@@ -31,6 +31,8 @@
   var scaleY = canvas.height / game.height;
   var scale = scaleX < scaleY ? scaleX : scaleY;
   var playState = 'Stopped';
+
+  document.getElementById('jsonData').value = JSON.stringify(game, null, 1);
   drawCurrentMove();
 
   document.getElementById('playBtn').onclick =
@@ -71,7 +73,7 @@
   function() {
     playState = 'Stopped';
     moveIndex = 0;
-    game = eval('(' + document.getElementById('jsonData').value + ')');
+    game = JSON.parse(document.getElementById('jsonData').value);
     var scaleX = canvas.width / game.width;
     var scaleY = canvas.height / game.height;
     scale = scaleX < scaleY ? scaleX : scaleY;
