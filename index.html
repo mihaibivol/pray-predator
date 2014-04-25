@@ -17,6 +17,7 @@
     <button class='btn fa fa-play' id='playBtn'></button>
     <button class='btn fa fa-stop' id='stopBtn'></button>
     <button class='btn fa fa-forward' id='nextBtn'></button>
+    <input type='range' id='speed' min='50' max='600'>
   </div>
   </div>
 
@@ -121,7 +122,7 @@
 
     if (playState === 'Running') {
       moveIndex++;
-      setTimeout(drawCurrentMove, 300);
+      setTimeout(drawCurrentMove, 600 - document.getElementById('speed').value);
     }
 
   }

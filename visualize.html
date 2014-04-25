@@ -1,18 +1,31 @@
 <html>
   <head>
   <script src="game.js" type="text/javascript"></script>
+  <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <link href='http://fonts.googleapis.com/css?family=Sonsie+One' rel='stylesheet' type='text/css'>
   </head>
   <body>
+
+  <div class="container color1" name="top">
   <h1> prey and predators </h1>
-  <canvas id="canvas" width="800" height="600" style="border:1px solid #d3d3d3;">
+  <canvas id="canvas" width="800" height="600" style="border:2px solid #d3d3d3;">
     Your browser does not support the HTML5 canvas tag.</canvas>
   </body>
   <div>
-    <span class='btn' id='prevBtn'> Prev </span>
-    <span class='btn' id='pauseBtn'> Pause </span>
-    <span class='btn' id='playBtn'> Play </span>
-    <span class='btn' id='stopBtn'> Stop </span>
-    <span class='btn' id='nextBtn'> Next </span>
+    <button class='btn fa fa-backward' id='prevBtn'></button>
+    <button class='btn fa fa-pause' id='pauseBtn'></button>
+    <button class='btn fa fa-play' id='playBtn'></button>
+    <button class='btn fa fa-stop' id='stopBtn'></button>
+    <button class='btn fa fa-forward' id='nextBtn'></button>
+    <input type='range' id='speed' min='50' max='600'>
+  </div>
+  </div>
+
+  <div class="container color2">
+    <h2> add custom json game data here: </h2>
+    <textarea rows=30 cols=80 id="jsonData"></textarea>
+    <br/>
+    <button class='btn' id='loadBtn'> Load it! </button>
   </div>
   <script>
   var moveIndex = 0;
@@ -21,6 +34,8 @@
   var scaleY = canvas.height / game.height;
   var scale = scaleX < scaleY ? scaleX : scaleY;
   var playState = 'Stopped';
+
+  document.getElementById('jsonData').value = JSON.stringify(game, null, 1);
   drawCurrentMove();
 
   document.getElementById('playBtn').onclick =
@@ -55,6 +70,18 @@
     playState = 'Stopped';
     moveIndex < game.moves.length - 1 ? moveIndex++ : moveIndex;
     drawCurrentMove();
+  };
+
+  document.getElementById('loadBtn').onclick =
+  function() {
+    playState = 'Stopped';
+    moveIndex = 0;
+    game = JSON.parse(document.getElementById('jsonData').value);
+    var scaleX = canvas.width / game.width;
+    var scaleY = canvas.height / game.height;
+    scale = scaleX < scaleY ? scaleX : scaleY;
+    drawCurrentMove();
+    scrollTo(0, 0);
   };
 
   function drawCircle(x, y, radius, color) {
@@ -95,16 +122,28 @@
 
     if (playState === 'Running') {
       moveIndex++;
-      setTimeout(drawCurrentMove, 300);
+      setTimeout(drawCurrentMove, 600 - document.getElementById('speed').value);
     }
 
   }
   </script>
   <style>
-    body {
+    html {
+      background-color: #26627F;
+    }
+    #canvas {
+      background-color: #efefff;
+    }
+    .container {
       margin: auto;
-      width: 800px;
+      width: 900px;
+      border: thick solid #000000;
+      border-top: thick solid #000000;
+      border-width: 1px;
+      border-top-width: 10px;
       text-align: center;
+      font-family: 'Sonsie One', cursive;
+      padding: 10px;
     }
     .btn {
       padding: 10px;
@@ -112,6 +151,18 @@
       background-color: #eaeaea;
       cursor: pointer;
       border-radius: 5px;
+    }
+
+    h2 {
+      margin: 0px;
+      padding-top: 20px;
+    }
+    .color1 {
+      background-color: #00aaff;
+    }
+
+    .color2 {
+      background-color: #0088cc;
     }
   </style>
 </html>
