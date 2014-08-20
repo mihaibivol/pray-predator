@@ -24,7 +24,7 @@
       'height': 6,
       'predatorPerceptionRadius': 3,
       'preyPerceptionRadius': 2,
-      'preyCollisonRadius': .3,
+      'preyCollisionRadius': .3,
       'predatorCollisionRadius': .2,
       'trapCollisionRadius': .3
 }

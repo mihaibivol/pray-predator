@@ -104,7 +104,7 @@
     canvas.width = canvas.width;
     move = game.moves[moveIndex];
 
-    drawCircle(move.prey[0], move.prey[1], game.preyCollisonRadius, '#00fe00');
+    drawCircle(move.prey[0], move.prey[1], game.preyCollisionRadius, '#00fe00');
     drawCircle(move.prey[0], move.prey[1], game.preyPerceptionRadius, '#aafeaa');
 
     move.traps.forEach(function(trap) {
